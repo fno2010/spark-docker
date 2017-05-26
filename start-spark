@@ -3,6 +3,7 @@
 # Set default HDFS user if not set
 if [[ -z "${HDFS_USER}" ]]; then
   export HDFS_USER=root
+  export HDFS_GROUP=staff
 fi
 
 if [[ "${1}" = 'master' ]]; then
