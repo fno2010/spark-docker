@@ -12,6 +12,7 @@ RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install \
     -yq --no-install-recommends  \
       python python3 iputils-ping net-tools \
+      openssh-client openssh-server \
   && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
