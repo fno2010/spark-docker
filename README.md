@@ -44,23 +44,30 @@ The easiest way to create a standalone cluster with this image is by using [Dock
 version: "2"
 
 services:
-  master:
-    image: singularities/spark
-    command: start-spark master
-    hostname: master
+  spark-master:
+    image: fno2010/spark
+    command: master 0.0.0.0
+    hostname: spark-master
+    container_name: spark-master
     ports:
-      - "6066:6066"
-      - "7070:7070"
-      - "8080:8080"
-      - "50070:50070"
-  worker:
-    image: singularities/spark
-    command: start-spark worker master
+    - "6066:6066"
+    - "7070:7070"
+    - "8080:8080"
+    - "50070:50070"
+  spark-worker:
+    image: fno2010/spark
+    command: worker spark-master 0.0.0.0
+    depends_on:
+    - spark-master
     environment:
       SPARK_WORKER_CORES: 1
       SPARK_WORKER_MEMORY: 2g
-    links:
-      - master
+```
+
+And you can quickly start a simple standalone spark cluster by the following command:
+
+```sh
+docker-compose up -d
 ```
 
 ### Persistence
